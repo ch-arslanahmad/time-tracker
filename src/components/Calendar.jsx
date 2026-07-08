@@ -1,17 +1,7 @@
+import { useState } from "react";
+
 class Time {
-    constructor() {
-        const date = new Date();
-
-        const days = [
-            "Sunday",
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-        ];
-
+    constructor(monthNo, yearNo) {
         const months = [
             "January",
             "February",
@@ -27,13 +17,12 @@ class Time {
             "December",
         ];
 
-        this.dayNo = date.getDate();
-        this.dayName = days[date.getDay()];
-        this.monthNo = date.getMonth();
-        this.monthName = months[date.getMonth()];
-        this.year = date.getFullYear();
-        this.firstDay = this.getMonthFirstDay(this.monthNo, this.year);
-        this.totalDays = this.getTotalDays(this.monthNo, this.year);
+        this.dayNo = new Date().getDate();
+        this.monthNo = monthNo;
+        this.monthName = months[monthNo];
+        this.year = yearNo;
+        this.firstDay = this.getMonthFirstDay(monthNo, yearNo);
+        this.totalDays = this.getTotalDays(monthNo, yearNo);
     }
 
     getMonthFirstDay(monthNo, year) {
@@ -45,8 +34,25 @@ class Time {
     }
 }
 
+function moveMonth(monthNo, year) {
+    if (monthNo < 0 || monthNo > 11) {
+        throw new Error(`Invalid month: ${monthNo}`);
+    }
+    if (monthNo % 11 === 0) {
+        // if n/12 = 0 then even
+        return { month: 1, year: year + 1 };
+    } else {
+        return { month: monthNo + 1, year: year };
+    }
+}
+
 function Calendar() {
-    let time = new Time();
+    let today = new Date();
+
+    const [year, setYear] = useState(today.getFullYear());
+    const [month, setMonth] = useState(today.getMonth());
+
+    let time = new Time(month, year);
 
     let daysRow = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(
         (day) => <td key={day}>{day}</td>,
@@ -67,7 +73,11 @@ function Calendar() {
 
     // create cells of the month
     for (let i = 0; i < time.totalDays; i++) {
-        if (i + 1 === time.dayNo) {
+        if (
+            i + 1 === time.dayNo &&
+            month === today.getMonth() &&
+            year === today.getFullYear()
+        ) {
             days.push(
                 <td className="current-day" key={`current-${i + 1}`}>
                     {i + 1}
@@ -103,6 +113,9 @@ function Calendar() {
     return (
         <>
             <h1>Calendar</h1>
+            <p className="caption">
+                {time.monthName}, {time.year}
+            </p>
             <table>
                 <thead>
                     <tr>{daysRow}</tr>
@@ -111,8 +124,32 @@ function Calendar() {
             </table>
 
             <div className="calender-navigation">
-                <button value="prev">Previous</button>
-                <button value="next">Next</button>
+                <button
+                    value="prev"
+                    onClick={() => {
+                        if (month === 0) {
+                            setMonth(11);
+                            setYear(year - 1);
+                        } else {
+                            setMonth(month - 1);
+                        }
+                    }}
+                >
+                    Previous
+                </button>
+                <button
+                    value="next"
+                    onClick={() => {
+                        if (month === 11) {
+                            setMonth(0);
+                            setYear(year + 1);
+                        } else {
+                            setMonth(month + 1);
+                        }
+                    }}
+                >
+                    Next
+                </button>
             </div>
         </>
     );
