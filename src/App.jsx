@@ -10,7 +10,7 @@ function App() {
     if (showAuth) {
         return <Auth onDone={() => setShowAuth(false)} />;
     }
-    // return <Calendar />;
+    return <Calendar />;
 }
 
 export default App;
