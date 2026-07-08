@@ -1,0 +1,75 @@
+.auth-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-width: 400px;
+    align-items: center;
+    text-align: start;
+    margin: 0 auto;
+    gap: 10px;
+}
+
+.auth-container input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+}
+
+.auth-container input:focus {
+    border-color: var(--accent);
+}
+
+.auth-container input:user-invalid {
+    border-color: red;
+}
+
+button {
+    background: transparent;
+    padding: 5px 15px;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.current-day {
+    text-decoration: 5px underline;
+    text-underline-offset: 5px;
+    text-decoration-color: red;
+}
+
+/* Table CSS */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid var(--accent);
+    color: black;
+    margin-bottom: 10px;
+}
+
+thead {
+    background-color: var(--accent);
+    color: white;
+}
+
+td,
+th {
+    border: 1px solid var(--accent);
+    padding: 8px;
+    text-align: center;
+}
+
+.prev-days,
+.next-days {
+    color: gray;
+}
+
+.calender-navigation {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
