@@ -42,6 +42,11 @@ button {
     cursor: pointer;
 }
 
+button:hover {
+    background: var(--accent);
+    color: white;
+}
+
 .current-day {
     text-decoration: 5px underline;
     text-underline-offset: 5px;
@@ -80,9 +85,24 @@ th {
     justify-content: center;
 }
 
-.form-error {
+.field-error {
     color: red;
     font-size: 12px;
     margin-top: -5px;
     margin-bottom: 5px;
+}
+
+.logout-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 8px 20px;
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    background: var(--accent);
+    color: white;
 }

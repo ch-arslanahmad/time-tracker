@@ -46,7 +46,7 @@ function moveMonth(monthNo, year) {
     }
 }
 
-function Calendar() {
+function Calendar({ onLogout }) {
     let today = new Date();
 
     const [year, setYear] = useState(today.getFullYear());
@@ -151,6 +151,9 @@ function Calendar() {
                     Next
                 </button>
             </div>
+            <button className="logout-btn" onClick={onLogout}>
+                Logout
+            </button>
         </>
     );
 }
